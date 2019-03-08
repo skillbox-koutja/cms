@@ -29,7 +29,7 @@ class Router
                 return $this->invokeCallback($handler);
             }
         }
-        return new Response('Page not found', 404);
+        return $this->notFoundPageResponse();
     }
 
     /**
@@ -48,9 +48,18 @@ class Router
 
         $data = $callback();
         if ($data instanceof View) {
-            $data->render();
-            return new Response('');
+            try {
+                $data->render();
+                return new Response('');
+            } catch (\Throwable $e) {
+                return $this->notFoundPageResponse();
+            }
         }
         return $data instanceof Response ? $data : new Response($data);
+    }
+
+    private function notFoundPageResponse()
+    {
+        return new Response('Page not found', 404);
     }
 }
