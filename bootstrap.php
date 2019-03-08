@@ -1,7 +1,40 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Response.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/RouteHandler.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Router.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Controller.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Application.php';
+define('APP_DIR', $_SERVER['DOCUMENT_ROOT']);
+define('VIEW_DIR', APP_DIR . DIRECTORY_SEPARATOR . 'view');
+
+/**
+ * An example of a project-specific implementation.
+ *
+ * After registering this autoload function with SPL, the following line
+ * would cause the function to attempt to load the \Foo\Bar\Baz\Qux class
+ * from /path/to/project/src/Baz/Qux.php:
+ *
+ *      new \Foo\Bar\Baz\Qux;
+ *
+ * @param string $class The fully-qualified class name.
+ * @return void
+ */
+spl_autoload_register(function ($class) {
+
+    // project-specific namespace prefix
+    $prefix = 'App\\';
+
+    // base directory for the namespace prefix
+    $base_dir = __DIR__ . '/src/';
+
+    // does the class use the namespace prefix?
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        // no, move to the next registered autoloader
+        return;
+    }
+
+    $relative_class = substr($class, $len);
+
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+    if (file_exists($file)) {
+        require $file;
+    }
+});
