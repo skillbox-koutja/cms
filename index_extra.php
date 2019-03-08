@@ -9,6 +9,7 @@ $router = new \App\Router();
 
 $router->get('/', \App\Controller::class . '@index');
 $router->get('/about', \App\Controller::class . '@about');
+$router->get('/personal/messages/show', \App\Controller::class . '@personalMessagesShow');
 
 $application = new \App\Application($router);
 

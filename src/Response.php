@@ -6,19 +6,19 @@ namespace App;
 
 class Response
 {
-    private $data;
+    private $content;
 
     private $code;
 
-    public function __construct($data, $code = 200)
+    public function __construct($content, $code = 200)
     {
-        $this->data = $data;
+        $this->content = $content;
         $this->code = $code;
     }
 
     public function __toString()
     {
         http_response_code($this->code);
-        return $this->data;
+        return $this->content;
     }
 }

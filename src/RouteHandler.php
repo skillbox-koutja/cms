@@ -21,27 +21,10 @@ class RouteHandler
     }
 
     /**
-     * @return Response
+     * @return mixed
      */
-    public function __invoke()
+    public function getCallback()
     {
-        return $this->invokeCallback();
-    }
-
-    /**
-     * @return Response
-     */
-    private function invokeCallback()
-    {
-        if (is_string($this->callback)) {
-            $callback = function () {
-                list ($className, $handler) = explode('@', $this->callback);
-                return (new $className())->{$handler}();
-            };
-        } else {
-            $callback = $this->callback;
-        }
-        $data = $callback();
-        return $data instanceof Response ? $data : new Response($data);
+        return $this->callback;
     }
 }

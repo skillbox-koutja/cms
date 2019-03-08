@@ -8,10 +8,17 @@ require_once 'bootstrap.php';
 $router = new \App\Router();
 
 $router->get('/', function () {
-    return 'home';
+    return new App\View\View('index', ['title' => 'Index page']);
 });
 $router->get('/about', function () {
-    return 'about';
+    return 'About page';
+});
+$router->get('/personal/messages/show', function () {
+    return new App\View\View(
+        'personal.messages.show',
+        [
+            'title' => 'Personal messages show'
+        ]);
 });
 
 $application = new \App\Application($router);
