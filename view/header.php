@@ -3,10 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title><?= $data['title'] ?? ''; ?></title>
+    <title><?= $title ?? ''; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
+<body>
 <header>
-    <h1><?= $data['title'] ?? ''; ?></h1>
+    <h1><?= $title ?? ''; ?></h1>
 </header>

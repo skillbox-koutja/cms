@@ -20,7 +20,8 @@ class View implements Renderable
         if (!file_exists($path)) {
             throw new \InvalidArgumentException('Not found template ' . $this->template);
         }
-        $data = $this->data ?? [];
+
+        extract($this->data ?? []);
         require $path;
     }
 }
