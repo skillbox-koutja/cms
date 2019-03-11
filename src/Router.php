@@ -49,8 +49,7 @@ class Router
         $data = $callback();
         if ($data instanceof View) {
             try {
-                $data->render();
-                return new Response('');
+                return new Response($data);
             } catch (\Throwable $e) {
                 return $this->notFoundPageResponse();
             }

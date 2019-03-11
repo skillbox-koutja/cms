@@ -16,7 +16,7 @@ class Response
         $this->code = $code;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         http_response_code($this->code);
         return $this->content;
