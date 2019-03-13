@@ -23,13 +23,6 @@ class View implements Renderable
 
         extract($this->data ?? []);
 
-        ob_start();
         require $path;
-        return ob_get_clean();
-    }
-
-    public function __toString(): string
-    {
-        return $this->render();
     }
 }

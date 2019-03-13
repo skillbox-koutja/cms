@@ -5,7 +5,7 @@ ini_set('display_errors', true);
 
 require_once 'bootstrap.php';
 
-$router = new \App\Router();
+$router = new \App\Routing\Router();
 
 $router->get('/', function () {
     return new App\View\View('index', ['title' => 'Index page']);

@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App;
+namespace App\Routing;
 
-use App\View\View;
+use App\Routing\Exception\RouteNotFoundException;
 
 class Router
 {
@@ -29,12 +29,12 @@ class Router
                 return $this->invokeCallback($handler);
             }
         }
-        return $this->notFoundPageResponse();
+        throw new RouteNotFoundException();
     }
 
     /**
      * @param RouteHandler $handler
-     * @return Response|mixed
+     * @return mixed
      */
     private function invokeCallback(RouteHandler $handler)
     {
@@ -46,19 +46,6 @@ class Router
             };
         }
 
-        $data = $callback();
-        if ($data instanceof View) {
-            try {
-                return new Response($data);
-            } catch (\Throwable $e) {
-                return $this->notFoundPageResponse();
-            }
-        }
-        return $data instanceof Response ? $data : new Response($data);
-    }
-
-    private function notFoundPageResponse()
-    {
-        return new Response('Page not found', 404);
+        return $callback();
     }
 }

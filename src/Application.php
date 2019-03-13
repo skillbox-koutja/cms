@@ -1,8 +1,10 @@
 <?php
 
-
 namespace App;
 
+use App\Routing\Exception\RouteNotFoundException;
+use App\Routing\Router;
+use App\View\Renderable;
 
 class Application
 {
@@ -18,6 +20,29 @@ class Application
 
     public function run()
     {
-        echo $this->router->dispatch();
+        try {
+            $response = $this->createResponse();
+        } catch (RouteNotFoundException $e) {
+            $response = $this->notFoundPageResponse();
+        }
+
+        echo $response;
+    }
+
+    private function createResponse()
+    {
+        $result = $this->router->dispatch();
+        if ($result instanceof Renderable) {
+            ob_start();
+            $result->render();
+            $content = ob_get_clean();
+            $result = new Response($content);
+        }
+        return $result instanceof Response ? $result : new Response($result);
+    }
+
+    private function notFoundPageResponse()
+    {
+        return new Response('Page not found', 404);
     }
 }
