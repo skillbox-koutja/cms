@@ -5,8 +5,8 @@ namespace App\View;
 class View implements Renderable
 {
 
-    private $template;
-    private $data;
+    private string $template;
+    private array $data;
 
     public function __construct($template, $data)
     {

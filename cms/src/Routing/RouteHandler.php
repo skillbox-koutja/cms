@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Routing;
 
 class RouteHandler
 {
-    private $path;
+    private string $path;
 
     private $callback;
 

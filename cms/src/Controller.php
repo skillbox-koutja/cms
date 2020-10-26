@@ -4,7 +4,7 @@ namespace App;
 
 class Controller
 {
-    public function home()
+    public function index()
     {
         return new View\View(
             'index',

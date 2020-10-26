@@ -2,12 +2,12 @@
 
 namespace App\Routing;
 
-use App\Routing\Exception\RouteNotFoundException;
+use App\Exception\NotFoundException;
 
 class Router
 {
     /** @var RouteHandler[] */
-    private $handlers = [];
+    private array $handlers = [];
 
     /**
      * @param $path
@@ -17,6 +17,7 @@ class Router
     public function get($path, $callback): Router
     {
         $this->handlers[] = new RouteHandler($path, $callback);
+
         return $this;
     }
 
@@ -28,7 +29,7 @@ class Router
                 return $this->invokeCallback($handler);
             }
         }
-        throw new RouteNotFoundException();
+        throw new NotFoundException();
     }
 
     /**
