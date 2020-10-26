@@ -1,0 +1,40 @@
+version: '3'
+services:
+  cms-nginx:
+    build:
+      context: ./cms/docker/development
+      dockerfile: nginx.docker
+    volumes:
+      - ./cms:/app
+    depends_on:
+      - cms-php-fpm
+    ports:
+      - "8080:80"
+  cms-php-fpm:
+    build:
+      context: ./cms/docker/development
+      dockerfile: php-fpm.docker
+    volumes:
+      - ./cms:/app
+    depends_on:
+      - storage
+  cms-php-cli:
+    build:
+      context: ./cms/docker/development
+      dockerfile: php-cli.docker
+    volumes:
+      - ./cms:/app
+      - composer:/root/.composer/cache
+    depends_on:
+      - storage
+  storage:
+    build:
+      context: ./storage/docker/development
+      dockerfile: nginx.docker
+    volumes:
+      - ./storage:/app
+    ports:
+      - "8081:80"
+
+volumes:
+  composer:

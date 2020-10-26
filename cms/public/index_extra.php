@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-require_once 'bootstrap.php';
+require dirname(__DIR__).'/config/bootstrap.php';
 
 $router = new \App\Router();
 

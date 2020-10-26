@@ -1,6 +1,6 @@
 <?php
 
-define('APP_DIR', $_SERVER['DOCUMENT_ROOT']);
+define('APP_DIR', dirname(__DIR__));
 define('VIEW_DIR', APP_DIR . DIRECTORY_SEPARATOR . 'view');
 
 /**
@@ -21,7 +21,7 @@ spl_autoload_register(function ($class) {
     $prefix = 'App\\';
 
     // base directory for the namespace prefix
-    $base_dir = __DIR__ . '/src/';
+    $base_dir = APP_DIR . '/src/';
 
     // does the class use the namespace prefix?
     $len = strlen($prefix);

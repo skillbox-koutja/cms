@@ -1,26 +1,30 @@
 <?php
 
+use App\Application;
+use App\Routing;
+use App\View;
+
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-require_once 'bootstrap.php';
+require dirname(__DIR__).'/config/bootstrap.php';
 
-$router = new \App\Routing\Router();
+$router = new Routing\Router();
 
 $router->get('/', function () {
-    return new App\View\View('index', ['title' => 'Index page']);
+    return new View\View('index', ['title' => 'Index page']);
 });
 $router->get('/about', function () {
     return 'About page';
 });
 $router->get('/personal/messages/show', function () {
-    return new App\View\View(
+    return new View\View(
         'personal.messages.show',
         [
             'title' => 'Personal messages show'
         ]);
 });
 
-$application = new \App\Application($router);
+$application = new Application($router);
 
 $application->run();

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Routing;
 
 use App\Routing\Exception\RouteNotFoundException;
